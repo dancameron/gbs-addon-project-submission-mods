@@ -5,6 +5,8 @@ class GB_Submission extends Group_Buying_Controller {
 	public static function init() {
 		add_filter( 'gb_deal_submission_fields', array( __CLASS__, 'project_submission_fields' ), 100, 1 );
 
+		add_filter( 'gb_string_project-savings', create_function( '', 'return Crowd_Funding::passthrough_gb__("YouTube URL");' ) );
+
 		add_action( 'submit_deal', array( get_class(), 'project_submission_defaults' ), 5 ); // lower priority than the CF class and the Attribute class
 	}
 
@@ -25,7 +27,7 @@ class GB_Submission extends Group_Buying_Controller {
 
 		$fields['highlights']['label'] = self::__( 'More Details' );
 
-		$fields['locations'] = array(
+		$fields['amount_saved'] = array(
 			'weight' => 1002,
 			'label' => self::__( 'YouTube' ),
 			'type' => 'text',
